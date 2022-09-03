@@ -34,3 +34,17 @@ steps:
     pip install pytest pytest-azurepipelines
     pytest
   displayName: 'pytest'
+- task: JFrogToolsInstaller@1
+  inputs:
+    artifactoryConnection: 'hts2-artifactory'
+    cliInstallationRepo: 'jfrog-cli-v2-new'
+    installExtractors: true
+    extractorsInstallationRepo: 'jfrog-extractors-remote'
+- task: JFrogPip@1
+  inputs:
+    artifactoryConnection: 'hts2-artifactory'
+    command: 'install'
+    targetResolveRepo: 'harish-pypi'
+    collectBuildInfo: true
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildNumber)'
